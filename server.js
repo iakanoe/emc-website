@@ -1,7 +1,8 @@
-const sass_middleware = require('node-sass-middleware');
-const express = require('express');
-const app = express();
-const PORT = /* process.env.PORT || */ 8080;
+var sass_middleware = require('node-sass-middleware');
+var express = require('express');
+var app = express();
+
+app.use(express.static(__dirname + "/src"));
 
 app.use(sass_middleware({
     src: __dirname + "/src",
@@ -9,8 +10,6 @@ app.use(sass_middleware({
     debug: true
 }));
 
-app.use(express.static(__dirname + "/src"));
-
-const server = app.listen(PORT, () => {
-    console.log(`Express running → PORT ${server.address().port}`);
+var server = app.listen(process.env.PORT || 8080, function() {
+    console.log("Express running → PORT " + server.address().port);
 });
